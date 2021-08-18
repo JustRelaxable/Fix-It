@@ -15,8 +15,6 @@ public static class Vibrator
     {
         if (IsAndroid())
         {
-            long x = 200;
-            //vibrator.Call("vibrate", x);
 #if UNITY_ANDROID && !UNITY_EDITOR
             vibrator.Call("vibrate",vibrationEffect.CallStatic<AndroidJavaObject>("createPredefined", effect));
 #endif

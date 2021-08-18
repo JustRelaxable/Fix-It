@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EventManager : GenericSingleton<EventManager>
 {
-    public static OnZoom onZoom;
-    private void Awake()
+    public SpeechBubbleClicked OnSpeechBubbleClicked;
+    public LevelSelectorExitButtonClicked OnLevelSelectorExitButtonClicked;
+    protected override void Awake()
     {
-        onZoom = new OnZoom();
+        base.Awake();
+        OnSpeechBubbleClicked = new SpeechBubbleClicked();
+        OnLevelSelectorExitButtonClicked = new LevelSelectorExitButtonClicked();
     }
 }

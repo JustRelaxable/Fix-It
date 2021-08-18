@@ -18,13 +18,10 @@ public class CameraAnimator : MonoBehaviour
     private void Awake()
     {
         rotationMotionTime = 0.5f;
+        EventManager.instance.OnSpeechBubbleClicked.AddListener(EventManager_OnSpeechBubbleClicked);
+        EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventManager_OnLevelSelectorExitButtonClicked);
     }
 
-    void Start()
-    {
-    }
-
-   
     void Update()
     {
         if (inAnimatorState)
@@ -92,5 +89,15 @@ public class CameraAnimator : MonoBehaviour
             yield return null;
         }
         inAnimatorState = true;
+    }
+
+    private void EventManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    {
+        GoToTransform(_brokenObject.cameraFreeViewPosition.transform);
+    }
+
+    private void EventManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject)
+    {
+        ReturnToDefaultTransform();
     }
 }

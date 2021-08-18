@@ -46,6 +46,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4701893329030131874, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+      propertyPath: bubbleImage
+      value: 
+      objectReference: {fileID: 8050192268292958047}
     - target: {fileID: 6360830602821955351, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -146,10 +150,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9202934813685904522, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8175270663824467068}
+    - target: {fileID: 9202934813685904522, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSpeechBubbleClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202934813685904522, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SpeechBubble, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
 --- !u!224 &6374770884795775071 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7513026796270546049, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+  m_PrefabInstance: {fileID: 3473434509401347294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8175270663824467068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4701893329030131874, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
+  m_PrefabInstance: {fileID: 3473434509401347294}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba37772e723e88f44b53aae189c5c519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8050192268292958047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6884905967323050881, guid: 0aa53ba8aa999ac4aa0754b92bd3405b, type: 3}
   m_PrefabInstance: {fileID: 3473434509401347294}
   m_PrefabAsset: {fileID: 0}

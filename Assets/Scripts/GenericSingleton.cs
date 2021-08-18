@@ -6,7 +6,7 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
 {
     static public T instance;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if(instance == null)
         {

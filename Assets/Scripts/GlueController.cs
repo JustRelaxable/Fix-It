@@ -11,7 +11,7 @@ public class GlueController : MonoBehaviour
     bool isGlueSpawnable = true;
     [SerializeField] GameObject snapPoint,glueObject,spawnPoint,rayPoint;
     [SerializeField] float height;
-    [SerializeField] Camera camera;
+    [SerializeField] Camera mainCamera;
     [SerializeField] LayerMask maskRay;
     RaycastHit raycastHit;
     private ObjectPool objectPool;
@@ -45,7 +45,7 @@ public class GlueController : MonoBehaviour
         }
         else
         {
-            var ray = camera.ScreenPointToRay(Input.mousePosition);
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             var ray2 = new Ray(rayPoint.transform.position, rayPoint.transform.forward);
             Debug.DrawRay(rayPoint.transform.position, rayPoint.transform.forward, Color.red);
             if (Physics.Raycast(ray, out raycastHit,10,maskRay.value))

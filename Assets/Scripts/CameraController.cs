@@ -8,7 +8,6 @@ public class CameraController : MonoBehaviour, IZoomable
     Quaternion initialRotation;
     private void Awake()
     {
-        EventManager.onZoom.AddListener(Zoom);
         initialPosition = transform.position;
         initialRotation = transform.rotation;
     }

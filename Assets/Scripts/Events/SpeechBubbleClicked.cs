@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnZoom : UnityEvent<NotifyingObject>
+public class SpeechBubbleClicked : UnityEvent<BrokenObject>
 {
 
 }

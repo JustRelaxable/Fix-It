@@ -10,10 +10,14 @@ public class RoomsController : GenericSingleton<RoomsController>
     public bool isActivated = true;
 
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         differenceVector = transform.position - room2.transform.position;
         inverseDifferenceVector = -differenceVector;
+
+        EventManager.instance.OnSpeechBubbleClicked.AddListener(EventsManager_OnSpeechBubbleClicked);
+        EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventsManager_OnLevelSelectorExitButtonClicked);
     }
 
     IEnumerator ChangeRoomCo(int leftOrRight)
@@ -46,5 +50,15 @@ public class RoomsController : GenericSingleton<RoomsController>
         {
             StartCoroutine(ChangeRoomCo(leftOrRight));
         }
+    }
+
+    private void EventsManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    {
+        isActivated = false;
+    }
+
+    private void EventsManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject)
+    {
+        isActivated = true;
     }
 }
