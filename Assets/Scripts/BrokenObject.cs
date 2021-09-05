@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class BrokenObject : MonoBehaviour
 {
     public GameObject cameraFreeViewPosition;
@@ -25,6 +25,11 @@ public class BrokenObject : MonoBehaviour
         animator.keepAnimatorControllerStateOnDisable = true;
         EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventManager_OnLevelExitButtonClicked);
         EventManager.instance.OnGlueSceneFinished.AddListener(EventManager_OnGlueSceneFinished);
+    }
+
+    private void Shake()
+    {
+        transform.DOShakeRotation(10f, 10f, 1, 50f, true);
     }
 
     public void SelectBrokenObject()
@@ -81,6 +86,7 @@ public class BrokenObject : MonoBehaviour
     public void FixTheObject()
     {
         animator.SetTrigger("Fixing");
+        Shake();
         foreach (var notifyingObject in _notifyingObject)
         {
             notifyingObject.DisableMeshRenderer();
