@@ -6,6 +6,8 @@ public class GlueController : MonoBehaviour
 {
     private Vector3 initialMousePosition;
     private Vector3 deltaMousePosition;
+
+    private Vector3 initialLocalPosition;
     private float motionTime = 0f;
     private Animator animator;
     bool isGlueSpawnable = true;
@@ -16,12 +18,16 @@ public class GlueController : MonoBehaviour
     RaycastHit raycastHit;
     private ObjectPool objectPool;
     public bool isGlueOpened = false;
-    int maxGlueParticle,glueParticleSpawned;
+    public int maxGlueParticle,glueParticleSpawned;
 
     private void Awake()
     {
+        initialLocalPosition = transform.localPosition;
+
         animator = GetComponent<Animator>();
         objectPool = GameManager.instance.gameObject.GetComponent<ObjectPool>();
+        EventManager.instance.OnGlueSceneInitialized.AddListener(EventManager_OnGlueSceneInitialized);
+        EventManager.instance.OnGlueSceneLevelFinished.AddListener(EventManager_OnGlueSceneLevelFinished);
     }
 
 
@@ -82,12 +88,13 @@ public class GlueController : MonoBehaviour
                 duration = 0f;
 
                 glueParticleSpawned += 1;
-                GameManager.instance.IncreaseGlueSpawned();
+                EventManager.instance.OnGlueParticleSpawned.Invoke(go, this);
             }
 
             if(glueParticleSpawned == maxGlueParticle)
             {
-                GameManager.instance.GlueOver();
+                EventManager.instance.OnGlueSceneLevelFinished.Invoke();
+                //GameManager.instance.GlueOver();
             }
             yield return null;
         }
@@ -102,5 +109,25 @@ public class GlueController : MonoBehaviour
     public void SetMaximumGlueParticleSpawn(int max)
     {
         maxGlueParticle = max;
+    }
+
+    private void ResetCurrentGlueParticleSpawned()
+    {
+        glueParticleSpawned = 0;
+    }
+
+    private void EventManager_OnGlueSceneInitialized(int _glueParticleCount)
+    {
+        SetMaximumGlueParticleSpawn(_glueParticleCount);
+        ResetCurrentGlueParticleSpawned();
+        isGlueOpened = false;
+        motionTime = 0f;
+        transform.localPosition = initialLocalPosition;
+    }
+
+    private void EventManager_OnGlueSceneLevelFinished()
+    {
+        animator.SetFloat("MotionTime", 0f);
+        //animator.Rebind();
     }
 }

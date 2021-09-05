@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6993541682696535431}
   - component: {fileID: 5579960295866163286}
   m_Layer: 6
-  m_Name: Plane
+  m_Name: NotifyingObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7247cf6a548509b44bdbc7bd68ab91e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokenObject: {fileID: 192450730305763087}
+  _brokenObject: {fileID: 192450730305763087}
 --- !u!1 &3086721600636258076
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +304,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraFreeViewPosition: {fileID: 3086721600636258076}
+  _notifyingObject:
+  - {fileID: 5579960295866163286}
+  isFixed: 0
 --- !u!1 &4808693733554165647
 GameObject:
   m_ObjectHideFlags: 0

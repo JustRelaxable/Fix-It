@@ -7,7 +7,7 @@ public class RoomsController : GenericSingleton<RoomsController>
     private Vector3 differenceVector,inverseDifferenceVector,translationVector;
     [SerializeField] GameObject room2;
     [SerializeField] AnimationCurve animationCurve;
-    public bool isActivated = true;
+    public bool ableToChangeRoom = true;
 
 
     protected override void Awake()
@@ -46,19 +46,19 @@ public class RoomsController : GenericSingleton<RoomsController>
 
     public void ChangeRoom(int leftOrRight)
     {
-        if (isActivated)
+        if (ableToChangeRoom)
         {
             StartCoroutine(ChangeRoomCo(leftOrRight));
         }
     }
 
-    private void EventsManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    private void EventsManager_OnSpeechBubbleClicked(BrokenObject brokenObject,SpeechBubble speechBubble)
     {
-        isActivated = false;
+        ableToChangeRoom = false;
     }
 
-    private void EventsManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject)
+    private void EventsManager_OnLevelSelectorExitButtonClicked(BrokenObject brokenObject,SpeechBubble speechBubble)
     {
-        isActivated = true;
+        ableToChangeRoom = true;
     }
 }

@@ -146,11 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba37772e723e88f44b53aae189c5c519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraLastPos: {fileID: 0}
-  Button: {fileID: 6884905967323050881}
-  animator: {fileID: 0}
-  objectController: {fileID: 0}
-  notifyingObject: {fileID: 0}
+  _bubbleImage: {fileID: 6884905967323050881}
+  _brokenObject: {fileID: 0}
 --- !u!1 &6884905967323050881
 GameObject:
   m_ObjectHideFlags: 0

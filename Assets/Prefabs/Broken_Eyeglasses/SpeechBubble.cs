@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class SpeechBubble : MonoBehaviour
 {
-    [SerializeField] GameObject bubbleImage;
-    [SerializeField] BrokenObject brokenObject;
+    [SerializeField] GameObject _bubbleImage;
+    [SerializeField] BrokenObject _brokenObject;
 
     private void Awake()
     {
-        EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventManager_OnLevelSelectorExitButtonClicked);
+       // EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventManager_OnLevelSelectorExitButtonClicked);
     }
 
     public void OnSpeechBubbleClicked()
     {
-        EventManager.instance.OnSpeechBubbleClicked.Invoke(brokenObject);
+        EventManager.instance.OnSpeechBubbleClicked.Invoke(_brokenObject,this);
         ChangeBubbleImageScale(Vector3.zero);
     }
 
@@ -27,21 +27,26 @@ public class SpeechBubble : MonoBehaviour
     {
         float duration = 0f;
         float maxDuration = 1f;
-        Vector3 currentScale = bubbleImage.transform.localScale;
+        Vector3 currentScale = _bubbleImage.transform.localScale;
 
         while (duration <= maxDuration)
         {
             duration += Time.deltaTime;
-            bubbleImage.transform.localScale = Vector3.Lerp(currentScale, _scale, (duration / maxDuration));
+            _bubbleImage.transform.localScale = Vector3.Lerp(currentScale, _scale, (duration / maxDuration));
             yield return null;
         }
     }
 
-    private void EventManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject)
+    private void EventManager_OnLevelSelectorExitButtonClicked(BrokenObject brokenObject,SpeechBubble speechBubble)
     {
-        if(brokenObject == _brokenObject)
+        brokenObject.HandleOnLevelExitButtonClicked();
+        if (!brokenObject.isFixed)
         {
-            ChangeBubbleImageScale(Vector3.one);
+            speechBubble.ChangeBubbleImageScale(Vector3.one);
+        }
+        else
+        {
+            ChangeBubbleImageScale(Vector3.zero);
         }
     }
 }

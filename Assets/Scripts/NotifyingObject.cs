@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class NotifyingObject : MonoBehaviour
 {
-    [SerializeField] BrokenObject brokenObject;
-
-
-    private void Awake()
-    {
-        EventManager.instance.OnSpeechBubbleClicked.AddListener(EventsManager_OnSpeechBubbleClicked);
-    }
+    [SerializeField] BrokenObject _brokenObject;
 
     private void OnMouseDown()
     {
-        GameManager.instance.ActivateSahne(1);
+        if(!_brokenObject.isFixed)
+            EventManager.instance.OnGlueSceneStarted.Invoke(_brokenObject);
     }
 
-    private void EventsManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    public void EnableMeshRenderer()
     {
-        if(brokenObject == _brokenObject)
-        {
-            GetComponent<MeshRenderer>().enabled = true;
-        }
+        GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    public void DisableMeshRenderer()
+    {
+        GetComponent<MeshRenderer>().enabled = false;
     }
 }

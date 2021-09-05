@@ -91,12 +91,12 @@ public class CameraAnimator : MonoBehaviour
         inAnimatorState = true;
     }
 
-    private void EventManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    private void EventManager_OnSpeechBubbleClicked(BrokenObject brokenObject,SpeechBubble speechBubble)
     {
-        GoToTransform(_brokenObject.cameraFreeViewPosition.transform);
+        GoToTransform(brokenObject.cameraFreeViewPosition.transform);
     }
 
-    private void EventManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject)
+    private void EventManager_OnLevelSelectorExitButtonClicked(BrokenObject _brokenObject,SpeechBubble speechBubble)
     {
         ReturnToDefaultTransform();
     }

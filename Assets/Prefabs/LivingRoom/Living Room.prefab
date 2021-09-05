@@ -689,6 +689,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1094617327560402360}
     m_Modifications:
+    - target: {fileID: 5571055756552508824, guid: 95ce4608f9704bb44b41cac6bd0ddf4f, type: 3}
+      propertyPath: _notifyingObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6290583440439247789, guid: 95ce4608f9704bb44b41cac6bd0ddf4f, type: 3}
       propertyPath: m_Name
       value: Kumanda

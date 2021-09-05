@@ -7,7 +7,7 @@ public class GlueSceneController : MonoBehaviour
     [SerializeField] GlueController glueController;
     private void OnEnable()
     {
-        GameManager.instance.ResetGlueScene();
+        //GameManager.instance.ResetGlueScene();
         //TODO:Randomly Select a mesh and assign
         glueController.SetMaximumGlueParticleSpawn(60);
     }

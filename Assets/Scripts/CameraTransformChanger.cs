@@ -12,14 +12,14 @@ public class CameraTransformChanger : MonoBehaviour
     public void ChangeCameraLocation()
     {
         Camera.main.GetComponent<CameraAnimator>().GoToTransform(cameraLastPos.transform);
-        RoomsController.instance.isActivated = false;
+        RoomsController.instance.ableToChangeRoom = false;
         PlayAnimation();
     }
 
     public void CameraGoDefaultLocation()
     {
         Camera.main.GetComponent<CameraAnimator>().ReturnToDefaultTransform();
-        RoomsController.instance.isActivated = false;
+        RoomsController.instance.ableToChangeRoom = false;
     }
 
     public virtual void PlayAnimation()

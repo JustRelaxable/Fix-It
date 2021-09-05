@@ -10,7 +10,7 @@ public class RoomsScene : MonoBehaviour
 
     private void OnEnable()
     {
-        RoomsController.instance.isActivated = true;
+        RoomsController.instance.ableToChangeRoom = true;
     }
 
     void Update()

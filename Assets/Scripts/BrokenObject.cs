@@ -5,30 +5,35 @@ using UnityEngine;
 public class BrokenObject : MonoBehaviour
 {
     public GameObject cameraFreeViewPosition;
+    [SerializeField] NotifyingObject[] _notifyingObject;
     Animator animator;
 
 
-    private Vector3 initialMousePosition, deltaMousePosition,initialPosition;
-    private Quaternion initialRotation;
+    private Vector3 initialMousePosition, deltaMousePosition,initialLocalPosition;
+    private Quaternion initialLocalRotation;
     private bool isRotationActivated = false;
+    bool glueSceneFinished = false;
+
+    public bool isFixed = false;
 
     private void Awake()
     {
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
+        initialLocalPosition = transform.localPosition;
+        initialLocalRotation = transform.localRotation;
 
         animator = GetComponent<Animator>();
-        EventManager.instance.OnSpeechBubbleClicked.AddListener(EventsManager_OnSpeechBubbleClicked);
+        animator.keepAnimatorControllerStateOnDisable = true;
         EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventManager_OnLevelExitButtonClicked);
+        EventManager.instance.OnGlueSceneFinished.AddListener(EventManager_OnGlueSceneFinished);
     }
 
-
-    private void EventsManager_OnSpeechBubbleClicked(BrokenObject _brokenObject)
+    public void SelectBrokenObject()
     {
-        if(this == _brokenObject)
+        isRotationActivated = true;
+        animator.SetTrigger("Selected");
+        foreach (var item in _notifyingObject)
         {
-            isRotationActivated = true;
-            animator.SetTrigger("Selected");
+            item.EnableMeshRenderer();
         }
     }
 
@@ -50,29 +55,52 @@ public class BrokenObject : MonoBehaviour
         }
     }
 
-    private void EventManager_OnLevelExitButtonClicked(BrokenObject _brokenObject)
+    private void EventManager_OnLevelExitButtonClicked(BrokenObject _brokenObject,SpeechBubble speechBubble)
     {
-        if(this == _brokenObject)
+    }
+
+    public void HandleOnLevelExitButtonClicked()
+    {
+        isRotationActivated = false;
+        if (!glueSceneFinished)
         {
-            isRotationActivated = false;
             animator.SetTrigger("NotSelected");
-            StartCoroutine(GoToDefaultPositionCo());
         }
+        else
+        {
+            glueSceneFinished = false;
+        }
+        StartCoroutine(GoToDefaultPositionCo());
+    }
+
+    private void EventManager_OnGlueSceneFinished(float score,BrokenObject _brokenObject)
+    {
+        glueSceneFinished = true;
+    }
+
+    public void FixTheObject()
+    {
+        animator.SetTrigger("Fixing");
+        foreach (var notifyingObject in _notifyingObject)
+        {
+            notifyingObject.DisableMeshRenderer();
+        }
+        isFixed = true;
     }
 
     IEnumerator GoToDefaultPositionCo()
     {
         float duration = 0f;
         float maxDuration = 1f;
-        Vector3 currentPosition = transform.position;
-        Quaternion currentRotation = transform.rotation;
+        Vector3 currentPosition = transform.localPosition;
+        Quaternion currentRotation = transform.localRotation;
 
 
         while (duration <= maxDuration)
         {
             duration += Time.deltaTime;
-            transform.position = Vector3.Lerp(currentPosition, initialPosition, (duration / maxDuration));
-            transform.rotation = Quaternion.Lerp(currentRotation, initialRotation, (duration / maxDuration));
+            transform.localPosition = Vector3.Lerp(currentPosition, initialLocalPosition, (duration / maxDuration));
+            transform.localRotation = Quaternion.Lerp(currentRotation, initialLocalRotation, (duration / maxDuration));
             yield return null;
         }
     }
