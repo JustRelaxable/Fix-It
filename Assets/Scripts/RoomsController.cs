@@ -8,13 +8,15 @@ public class RoomsController : GenericSingleton<RoomsController>
     [SerializeField] GameObject room2;
     [SerializeField] AnimationCurve animationCurve;
     public bool ableToChangeRoom = true;
-
+    private int _roomIndex = 0;
+    private int _roomCount;
 
     protected override void Awake()
     {
         base.Awake();
         differenceVector = transform.position - room2.transform.position;
         inverseDifferenceVector = -differenceVector;
+        _roomCount = transform.childCount;
 
         EventManager.instance.OnSpeechBubbleClicked.AddListener(EventsManager_OnSpeechBubbleClicked);
         EventManager.instance.OnLevelSelectorExitButtonClicked.AddListener(EventsManager_OnLevelSelectorExitButtonClicked);
@@ -28,10 +30,12 @@ public class RoomsController : GenericSingleton<RoomsController>
         if(leftOrRight == 0)
         {
             translationVector = inverseDifferenceVector;
+            _roomIndex--;
         }
         else
         {
             translationVector = differenceVector;
+            _roomIndex++;
         }
         Vector3 currentPos = transform.position;
 
@@ -46,7 +50,7 @@ public class RoomsController : GenericSingleton<RoomsController>
 
     public void ChangeRoom(int leftOrRight)
     {
-        if (ableToChangeRoom)
+        if (ableToChangeRoom && CanChangeRoom(leftOrRight))
         {
             StartCoroutine(ChangeRoomCo(leftOrRight));
         }
@@ -60,5 +64,24 @@ public class RoomsController : GenericSingleton<RoomsController>
     private void EventsManager_OnLevelSelectorExitButtonClicked(BrokenObject brokenObject,SpeechBubble speechBubble)
     {
         ableToChangeRoom = true;
+    }
+
+    private bool CanChangeRoom(int leftOrRight)
+    {
+        switch (leftOrRight)
+        {
+            case 0:
+                if (_roomIndex > 0)
+                    return true;
+                else
+                    return false;
+            case 1:
+                if (_roomIndex < _roomCount-1)
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
     }
 }
